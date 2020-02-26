@@ -266,17 +266,16 @@ public class Main {
         task = new Tasks(newTask, newInfo, prior);
 
         System.out.println("Choose a task to update by index: ");
-        int change = 0;
-        Tasks check;
+        int change;
         try {
             change = Integer.parseInt(input.nextLine());
-            check = merge.set(change, task);
+            merge.set(change, task);
             System.out.println("Updating task...");
             System.out.println("Successfully updated task.\n");
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("Index does not exist, new task has been discarded.");
+            System.out.println("Index does not exist, new task has been discarded. \n");
         } catch (NumberFormatException e) {
-            System.out.println("Invalid data type, new task has been discarded.");
+            System.out.println("Invalid data type, new task has been discarded. \n");
         }
     }
 
@@ -313,9 +312,9 @@ public class Main {
             Tasks match = merge.get(i);
             if (priority == match.getPriority()) {
                 System.out.println("Tasks with the priority: " + priority + " are: Task: " + match.getTitle() + ", Description: " +
-                        match.getDescription() + ", Priority: " + match.getPriority());
+                        match.getDescription() + ", Priority: " + match.getPriority() + "\n");
             } else {
-                System.out.println("There is no task assigned with the priority number: " + priority);
+                System.out.println("There is no task assigned with the priority number: " + priority + "\n");
             }
         }
     }
@@ -331,7 +330,7 @@ public class Main {
         // For-Each loop used to print out tasks with their corresponding description, priority and index based on
         // matching indexes.
         for (Tasks task : merge) {
-            System.out.println("Index: " + (index++) + ", " + task);
+            System.out.println("Index: " + (index++) + ", " + task + "\n");
         }
     }
 }
