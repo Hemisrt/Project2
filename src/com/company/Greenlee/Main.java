@@ -1,9 +1,11 @@
 package com.company.Greenlee;
 
-import java.util.*;
+import java.util.Scanner;
+import java.util.List;
+import java.util.ArrayList;
 
 public class Main {
-    // Trenton Greenlee. 1/30/2020. Project 1. CSCI 1660 - Android Programming Fundamentals (Java).
+    // Trenton Greenlee. 2/23/2020. Project 2. CSCI 1660 - Android Programming Fundamentals (Java).
     public static void main(String[] args) {
         // Calling menu() to ask the user to select an option.
         int prompt = menu();
@@ -41,7 +43,7 @@ public class Main {
         System.out.println("Exiting program...");
     }
 
-    // Array Lists for task names and their corresponding descriptions.
+    // ArrayList and a global object of Tasks in the Main program to use in all the methods without using parameters.
     public static Tasks task;
     private static List<Tasks> merge = new ArrayList<>();
 
@@ -49,10 +51,9 @@ public class Main {
     private static Scanner input = new Scanner(System.in);
 
     // Methods.
-    // Did not have to use a return statement for methods 2-5 since both ArrayLists are not in the main method.
     // Provides user with options based on an integer. Used a return statement since value needs to pass into the main method.
     public static int menu() {
-        boolean a = true;
+        boolean a;
         System.out.println("Please choose an option:\n" +
                 "(1) Add a task.\n" +
                 "(2) Remove a task.\n" +
@@ -74,13 +75,15 @@ public class Main {
         return option;
     }
 
-    // Adding a task and description.
+    // Adding a task, description, and priority.
     public static void add() {
-        // Need two different scanners since there is more than one variable initialized to a Scanner value.
+        // Need three different scanners since there is more than one variable initialized to a Scanner value.
         Scanner input = new Scanner(System.in);
         Scanner info = new Scanner(System.in);
         Scanner priorit = new Scanner(System.in);
 
+        // Need multiple boolean variables for the different try-catch statements since more than one consists of a
+        // while loop.
         boolean a = true;
         boolean b = true;
 
@@ -168,10 +171,9 @@ public class Main {
         System.out.println("Select a task to remove by index: ");
 
         int removeTask = 0;
-        Tasks check;
         try {
             removeTask = Integer.parseInt(input.nextLine());
-            check = merge.remove(removeTask);
+            merge.remove(removeTask);
             System.out.println("Removing task...");
             System.out.println("Successfully removed task.\n");
         } catch (IndexOutOfBoundsException e) {
@@ -183,7 +185,7 @@ public class Main {
 
     // Update the name of a task and its corresponding description based on matching indexes.
     public static void update() {
-        // Need four different scanners since there is more than one variable initialized to a Scanner value.
+        // Need five different scanners since there is more than one variable initialized to a Scanner value.
         Scanner input = new Scanner(System.in);
         Scanner string = new Scanner(System.in);
         Scanner info = new Scanner(System.in);
@@ -192,6 +194,9 @@ public class Main {
 
         // Reminds user if they want to look at the list before removing a task.
         System.out.println("Do you want to reread the list before proceeding?(Use 'yes' or 'no'): ");
+
+        // Need multiple boolean variables for the different try-catch statements since more than one consists of a
+        // while loop.
         boolean a = true;
         boolean b = true;
         boolean c = true;
@@ -277,7 +282,6 @@ public class Main {
 
     public static void listAllByPriority() {
         Scanner input = new Scanner(System.in);
-        // For loop used to print out tasks with their corresponding description based on matching indexes.
         System.out.println("Please enter a priority: ");
         boolean a = true;
 
@@ -298,20 +302,34 @@ public class Main {
         }
         while (a);
 
+
+        if (merge.isEmpty()) {
+            System.out.println("To-Do list is empty. Please add tasks to to run this method.\n");
+        }
+
+        // For loop to get the elements of the merge ArrayList and determine if each of their priority attributes match.
+        // If they match the prompted priority, those tasks will print.
         for (int i = 0; i < merge.size(); i++) {
             Tasks match = merge.get(i);
             if (priority == match.getPriority()) {
                 System.out.println("Tasks with the priority: " + priority + " are: Task: " + match.getTitle() + ", Description: " +
                         match.getDescription() + ", Priority: " + match.getPriority());
+            } else {
+                System.out.println("There is no task assigned with the priority number: " + priority);
             }
         }
     }
 
-    // List all tasks and their corresponding description based on their indexes.
+    // List all tasks and their corresponding description, priority and index based on matching indexes.
     public static void listAll() {
-        // For loop used to print out tasks with their corresponding description based on matching indexes.
         System.out.println("To-Do List: ");
         int index = 0;
+
+        if (merge.isEmpty()) {
+            System.out.println("To-Do List is empty. Please add tasks to run this method.\n");
+        }
+        // For-Each loop used to print out tasks with their corresponding description, priority and index based on
+        // matching indexes.
         for (Tasks task : merge) {
             System.out.println("Index: " + (index++) + ", " + task);
         }
